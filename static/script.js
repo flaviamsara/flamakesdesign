@@ -95,7 +95,19 @@ function mountThemeToggle() {
   });
 }
 
+function mountFixedPierre() {
+  if (document.querySelector('.main-home')) return;
+  if (document.querySelector('.about-pierre-fixed')) return;
+
+  const fixedPierre = document.createElement('div');
+  fixedPierre.className = 'about-pierre-fixed';
+  fixedPierre.setAttribute('aria-hidden', 'true');
+  fixedPierre.innerHTML = '<img src="static/pierre.png" alt="" />';
+  document.body?.appendChild(fixedPierre);
+}
+
 mountThemeToggle();
+mountFixedPierre();
 applyTheme(localStorage.getItem(themeKey) || 'light');
 
 const i18n = {

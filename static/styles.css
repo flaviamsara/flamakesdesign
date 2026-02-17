@@ -203,6 +203,11 @@ body[data-theme="dark"] .theme-toggle[data-mode="light"] .theme-icon-sun {
   padding: 0.8rem 0 2.2rem;
 }
 
+.home-nav-wrap {
+  display: grid;
+  gap: 0.45rem;
+}
+
 .nav-grid,
 .content-card {
   border: 3px solid var(--border);
@@ -428,6 +433,38 @@ body[data-theme="dark"] .theme-toggle[data-mode="light"] .theme-icon-sun {
   line-height: 1.35;
   letter-spacing: 0.03em;
   color: #7b655c;
+}
+
+.home-nav-under {
+  padding: 0 0.55rem;
+}
+
+.home-social-icons {
+  margin-top: 0.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.32rem;
+  flex-wrap: wrap;
+}
+
+.home-social-icons a {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  transition: transform 160ms ease;
+}
+
+.home-social-icons a:hover {
+  transform: translateY(-2px) scale(1.04);
+}
+
+.home-social-icons img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
 }
 
 .page-shell {
@@ -886,49 +923,50 @@ body[data-theme="dark"] .theme-toggle[data-mode="light"] .theme-icon-sun {
 }
 
 .contact-subtitle {
-  margin-bottom: 1rem;
+  width: min(100%, 46ch);
+  margin: 0 auto 0.9rem;
   font-size: 0.96rem;
+  line-height: 1.4;
+  text-align: center;
 }
 
-.contact-circles {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 0.85rem;
+.contact-panel {
   width: min(760px, 100%);
   margin: 0 auto;
-}
-
-.contact-bubble {
   display: grid;
-  justify-items: center;
-  gap: 0.38rem;
-  padding: 0.2rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
 }
 
-.contact-icon {
-  width: 66px;
-  height: 66px;
-  border-radius: 50%;
+.contact-link {
   border: 2px solid var(--border);
-  background: color-mix(in srgb, var(--paper-soft) 82%, white 18%);
-  display: grid;
-  place-items: center;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #5b443b;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--paper-soft) 84%, white 16%);
+  min-height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.7rem;
   transition: transform 170ms ease, box-shadow 170ms ease, background 170ms ease;
 }
 
-.contact-label {
-  font-size: 0.8rem;
-  color: var(--ink-soft);
-  text-transform: lowercase;
+.contact-link img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
 }
 
-.contact-bubble:hover .contact-icon {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 14px rgba(74, 48, 41, 0.18);
-  background: color-mix(in srgb, var(--accent) 28%, var(--paper) 72%);
+.contact-link span {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.contact-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 14px rgba(77, 50, 43, 0.18);
+  background: color-mix(in srgb, var(--accent) 20%, var(--paper) 80%);
 }
 
 .portfolio-head {
@@ -1108,7 +1146,24 @@ body[data-theme="dark"] .theme-toggle[data-mode="light"] .theme-icon-sun {
   .about-pierre-fixed {
     width: clamp(56px, 16vw, 76px);
     right: 0.65rem;
-    bottom: 0.55rem;
+    top: 4.4rem;
+    bottom: auto;
+  }
+
+  .main-home #pierreCharacter {
+    width: min(62vw, 210px);
+  }
+
+  .contact-panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contact-link {
+    min-height: 82px;
+  }
+
+  .contact-link span {
+    font-size: 0.88rem;
   }
 
   .home-mini-note {
@@ -1128,5 +1183,11 @@ body[data-theme="dark"] .theme-toggle[data-mode="light"] .theme-icon-sun {
     top: 0.7rem;
     max-width: 92%;
     font-size: 0.86rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .contact-panel {
+    grid-template-columns: 1fr;
   }
 }
