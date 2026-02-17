@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flamakesdesign | Home</title>
+    <meta name="description" content="Portfólio criativo da Flamakesdesign." />
+    <link rel="icon" type="image/png" href="static/favicon@3x.png" />
+    <link rel="stylesheet" href="static/styles.css" />
+  </head>
+  <body data-title-pt="Flamakesdesign | Home" data-title-en="Flamakesdesign | Home">
+    <header class="site-wrap topbar">
+      <a class="logo-link" href="index.html" aria-label="Voltar para home">
+        <img src="static/flamakesdesign.png" alt="Logo Fla makes design" />
+      </a>
+      <div class="lang-switch" role="group" aria-label="Selecionar idioma">
+        <button class="lang-btn is-active" data-lang="pt" type="button">PT</button>
+        <button class="lang-btn" data-lang="en" type="button">ENG</button>
+      </div>
+    </header>
+
+    <main class="site-wrap main-home">
+      <section class="hero-box" id="pierreBox">
+        <div class="pierre-speech" id="pierreSpeech" aria-live="polite">
+          <button class="speech-close" id="pierreSpeechClose" type="button" aria-label="Fechar balão">
+            x
+          </button>
+          <p id="pierreSpeechText"></p>
+          <p class="speech-hint" data-i18n="home.speechHint">você pode fechar esta aba no x</p>
+        </div>
+        <div class="pierre-wrap">
+          <img
+            id="pierreCharacter"
+            src="static/pierre.png"
+            alt="Ilustração do Pierre"
+            role="button"
+            tabindex="0"
+            aria-label="Clique no Pierre para uma mensagem"
+          />
+        </div>
+      </section>
+
+      <nav class="nav-grid" aria-label="Navegação principal">
+        <a class="nav-card" href="sobre.html" data-i18n="nav.about">sobre mim</a>
+        <a class="nav-card" href="portfolio.html" data-i18n="nav.portfolio">portfólio</a>
+        <a class="nav-card" href="servicos.html" data-i18n="nav.services">serviços</a>
+        <a class="nav-card" href="processo.html" data-i18n="nav.process">processo</a>
+        <a class="nav-card" href="outros-projetos.html" data-i18n="nav.otherProjects">outros projetos</a>
+        <a class="nav-card" href="loja.html" data-i18n="nav.shop">loja</a>
+        <a class="nav-card" href="contato.html" data-i18n="nav.contact">contato</a>
+      </nav>
+    </main>
+
+    <script src="static/script.js"></script>
+  </body>
+</html>
