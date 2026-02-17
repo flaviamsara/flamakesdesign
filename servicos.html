@@ -18,12 +18,69 @@
       </div>
     </header>
     <main class="site-wrap page-shell">
-      <section class="content-card">
+      <section class="content-card services-hero">
+        <span class="services-kicker">o que eu posso criar para sua marca</span>
         <h1 data-i18n="page.services.title">serviços</h1>
-        <p data-i18n="page.services.text">
-          Seção para explicar seus serviços: identidade visual, design de site,
-          materiais de marca, consultoria e direção de arte.
+        <p>
+          Escolha um serviço para ver o que está incluso. O objetivo é transformar sua comunicação visual em algo
+          bonito, estratégico e pronto para vender.
         </p>
+      </section>
+
+      <section class="services-deck-wrap" aria-label="Tipos de serviço">
+        <button class="deck-arrow deck-arrow-prev" id="servicePrev" type="button" aria-label="Serviço anterior">
+          &#10094;
+        </button>
+
+        <div class="services-deck" id="servicesDeck" tabindex="0" aria-label="Baralho de serviços">
+          <article class="service-deck-card" data-service-card>
+            <span class="service-tag">01</span>
+            <h2>Identidade Visual</h2>
+            <p>Construção completa da base visual para posicionar sua marca com clareza e personalidade.</p>
+            <ul>
+              <li>logo principal e variações</li>
+              <li>paleta de cores e tipografia</li>
+              <li>manual visual essencial</li>
+            </ul>
+          </article>
+
+          <article class="service-deck-card" data-service-card>
+            <span class="service-tag">02</span>
+            <h2>Modernização de marca</h2>
+            <p>Atualização visual para marcas existentes, mantendo reconhecimento e elevando percepção.</p>
+            <ul>
+              <li>refino de logo e sistema visual</li>
+              <li>atualização de cores e linguagem</li>
+              <li>direção para aplicação da nova fase</li>
+            </ul>
+          </article>
+
+          <article class="service-deck-card" data-service-card>
+            <span class="service-tag">03</span>
+            <h2>Design de Posts</h2>
+            <p>Peças para redes sociais com identidade consistente e comunicação profissional.</p>
+            <ul>
+              <li>posts institucionais e promocionais</li>
+              <li>capas, carrosséis e destaques</li>
+              <li>templates editáveis quando necessário</li>
+            </ul>
+          </article>
+
+          <article class="service-deck-card" data-service-card>
+            <span class="service-tag">04</span>
+            <h2>Criação de materiais gráficos</h2>
+            <p>Materiais impressos e digitais para fortalecer presença e aumentar conversão.</p>
+            <ul>
+              <li>cartão, cardápio, flyer e papelaria</li>
+              <li>materiais para campanhas e eventos</li>
+              <li>arquivos finais prontos para produção</li>
+            </ul>
+          </article>
+        </div>
+
+        <button class="deck-arrow deck-arrow-next" id="serviceNext" type="button" aria-label="Próximo serviço">
+          &#10095;
+        </button>
       </section>
       <p class="footer-note"><a href="index.html" data-i18n="common.backHome">voltar para home</a></p>
     </main>

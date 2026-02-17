@@ -25,7 +25,6 @@ const i18n = {
     'nav.portfolio': 'portfólio',
     'nav.services': 'serviços',
     'nav.process': 'processo',
-    'nav.otherProjects': 'outros projetos',
     'nav.shop': 'loja',
     'nav.contact': 'contato',
     'common.backHome': 'voltar para home',
@@ -62,8 +61,6 @@ const i18n = {
     'page.services.text': 'Seção para explicar seus serviços: identidade visual, design de site, materiais de marca, consultoria e direção de arte.',
     'page.process.title': 'processo',
     'page.process.text': 'Área para mostrar seu fluxo: briefing, pesquisa, conceito, criação, refinamento e entrega. Isso ajuda clientes a entenderem como você conduz cada projeto.',
-    'page.otherProjects.title': 'outros projetos',
-    'page.otherProjects.text': 'Espaço para estudos, colaborações, projetos experimentais e trabalhos pessoais que complementam seu portfólio principal.',
     'page.shop.title': 'loja',
     'page.shop.text': 'Página para vender templates, packs, artes, impressos ou produtos digitais. Você pode conectar com plataforma de pagamento depois.',
     'page.contact.title': 'contato',
@@ -74,7 +71,6 @@ const i18n = {
     'nav.portfolio': 'portfolio',
     'nav.services': 'services',
     'nav.process': 'process',
-    'nav.otherProjects': 'other projects',
     'nav.shop': 'shop',
     'nav.contact': 'contact',
     'common.backHome': 'back to home',
@@ -111,8 +107,6 @@ const i18n = {
     'page.services.text': 'Section to explain your services: visual identity, website design, brand materials, consulting, and art direction.',
     'page.process.title': 'process',
     'page.process.text': 'Area to show your workflow: briefing, research, concept, creation, refinement, and delivery. This helps clients understand how each project is developed.',
-    'page.otherProjects.title': 'other projects',
-    'page.otherProjects.text': 'Space for studies, collaborations, experimental projects, and personal work that complements your main portfolio.',
     'page.shop.title': 'shop',
     'page.shop.text': 'Page to sell templates, packs, artwork, prints, or digital products. You can connect to a payment platform later.',
     'page.contact.title': 'contact',
@@ -133,7 +127,6 @@ const pierreMessages = {
     'Clique em PT - EN para mudar o idioma do website!',
     ':P',
     'Eu sou o mascote oficial da flamakesdesign',
-    'Clique em outros projetos para ver projetos alternativos que nós estamos trabalhando!',
     'Eu amo sorvete! :D',
     'Fico feliz de você ter clicado nesse site <3'
   ],
@@ -244,4 +237,48 @@ if (portfolioHeadBox && portfolioHeadClose) {
   portfolioHeadClose.addEventListener('click', () => {
     portfolioHeadBox.style.display = 'none';
   });
+}
+
+const servicesDeck = document.getElementById('servicesDeck');
+const servicePrev = document.getElementById('servicePrev');
+const serviceNext = document.getElementById('serviceNext');
+
+if (servicesDeck && servicePrev && serviceNext) {
+  const serviceCards = Array.from(servicesDeck.querySelectorAll('[data-service-card]'));
+  let serviceIndex = 0;
+
+  const renderServiceDeck = () => {
+    if (!serviceCards.length) return;
+    const lastIndex = serviceCards.length - 1;
+    const prevIndex = serviceIndex === 0 ? lastIndex : serviceIndex - 1;
+    const nextIndex = serviceIndex === lastIndex ? 0 : serviceIndex + 1;
+
+    serviceCards.forEach((card, index) => {
+      card.classList.remove('is-active', 'is-prev', 'is-next', 'is-hidden');
+      if (index === serviceIndex) card.classList.add('is-active');
+      else if (index === prevIndex) card.classList.add('is-prev');
+      else if (index === nextIndex) card.classList.add('is-next');
+      else card.classList.add('is-hidden');
+    });
+  };
+
+  const goPrev = () => {
+    serviceIndex = serviceIndex === 0 ? serviceCards.length - 1 : serviceIndex - 1;
+    renderServiceDeck();
+  };
+
+  const goNext = () => {
+    serviceIndex = serviceIndex === serviceCards.length - 1 ? 0 : serviceIndex + 1;
+    renderServiceDeck();
+  };
+
+  servicePrev.addEventListener('click', goPrev);
+  serviceNext.addEventListener('click', goNext);
+
+  servicesDeck.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') goPrev();
+    if (event.key === 'ArrowRight') goNext();
+  });
+
+  renderServiceDeck();
 }
