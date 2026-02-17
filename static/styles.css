@@ -33,6 +33,23 @@ body {
   cursor: url("cursor-small.png") 1 1, auto;
 }
 
+body[data-theme="dark"] {
+  --bg: #2f211d;
+  --paper: #4a342d;
+  --paper-soft: #5a4037;
+  --ink: #f6dce6;
+  --ink-soft: #efc7d7;
+  --border: #d6aebf;
+  --accent: #6a4b41;
+  --accent-2: #7a5a4f;
+  --btn: #5c4239;
+  --btn-hover: #6a4c42;
+  background:
+    radial-gradient(circle at 10% 12%, rgba(130, 84, 95, 0.2) 0%, transparent 34%),
+    radial-gradient(circle at 88% 6%, rgba(95, 71, 63, 0.24) 0%, transparent 30%),
+    var(--bg);
+}
+
 a,
 button,
 .nav-card {
@@ -45,7 +62,7 @@ a {
 }
 
 .site-wrap {
-  width: min(1120px, 92vw);
+  width: min(960px, 84vw);
   margin: 0 auto;
 }
 
@@ -59,6 +76,12 @@ a {
   padding-bottom: 0.6rem;
   margin-bottom: 0.45rem;
   z-index: 0;
+}
+
+.topbar-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
 }
 
 .topbar::before {
@@ -95,6 +118,45 @@ a {
   border-radius: 999px;
   background: color-mix(in srgb, var(--paper) 84%, white 16%);
   overflow: hidden;
+}
+
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  padding: 0.16rem 0.22rem;
+  min-height: 34px;
+  background: color-mix(in srgb, var(--paper) 84%, white 16%);
+}
+
+.theme-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  opacity: 0.74;
+  transition: opacity 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.theme-toggle[data-mode="light"] .theme-icon-sun,
+.theme-toggle[data-mode="dark"] .theme-icon-moon {
+  opacity: 1;
+  color: #5a433a;
+  background: var(--accent);
+}
+
+body[data-theme="dark"] .theme-toggle[data-mode="dark"] .theme-icon-moon {
+  color: #f6dce6;
+}
+
+body[data-theme="dark"] .theme-toggle[data-mode="light"] .theme-icon-sun {
+  color: #5a433a;
 }
 
 .lang-switch::before {
@@ -137,7 +199,7 @@ a {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
   gap: 1.4rem;
-  align-items: stretch;
+  align-items: start;
   padding: 0.8rem 0 2.2rem;
 }
 
@@ -153,7 +215,7 @@ a {
   padding: 2.2rem 1.1rem 1.1rem;
   display: grid;
   place-items: center;
-  min-height: 440px;
+  min-height: 390px;
   background: transparent;
 }
 
@@ -359,6 +421,15 @@ a {
   box-shadow: 6px 6px 0 rgba(117, 86, 73, 0.28);
 }
 
+.home-mini-note {
+  margin: 0.2rem 0 0;
+  text-align: center;
+  font-size: 0.68rem;
+  line-height: 1.35;
+  letter-spacing: 0.03em;
+  color: #7b655c;
+}
+
 .page-shell {
   padding-bottom: 2rem;
 }
@@ -404,20 +475,32 @@ a {
 }
 
 .about-photo-slot {
-  border: 2px dashed var(--border);
-  border-radius: 18px;
-  min-height: 150px;
-  max-height: 170px;
-  background: color-mix(in srgb, var(--paper) 90%, white 10%);
+  width: min(220px, 100%);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--paper-soft) 88%, white 12%);
   display: grid;
   place-items: center;
-  padding: 0.55rem;
+  padding: 0.4rem;
+  overflow: hidden;
 }
 
 .about-photo-placeholder {
   color: var(--ink-soft);
   font-size: 0.92rem;
   text-transform: lowercase;
+}
+
+.about-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--border) 70%, white 30%);
+  background: color-mix(in srgb, var(--paper) 92%, white 8%);
 }
 
 .about-facts {
@@ -741,6 +824,113 @@ a {
   font-size: 0.95rem;
 }
 
+.about-pierre-fixed {
+  position: fixed;
+  right: 1.1rem;
+  bottom: 0.8rem;
+  width: clamp(62px, 8.5vw, 98px);
+  z-index: 15;
+  pointer-events: none;
+  opacity: 0.92;
+}
+
+.about-pierre-fixed img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 8px 14px rgba(86, 60, 51, 0.22));
+  animation: pierre-float 4.8s ease-in-out infinite, pierre-idle-tilt 6.6s ease-in-out infinite;
+}
+
+@keyframes pierre-idle-tilt {
+  0%,
+  100% {
+    transform: rotate(-1deg);
+  }
+
+  50% {
+    transform: rotate(1.4deg);
+  }
+}
+
+.shop-coming {
+  min-height: 340px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  text-align: center;
+  gap: 0.35rem;
+}
+
+.shop-coming h1 {
+  margin-bottom: 0.1rem;
+}
+
+.shop-face {
+  margin: 0;
+  font-size: clamp(2.4rem, 7vw, 4.2rem);
+  line-height: 1;
+  color: #6c5349;
+}
+
+.shop-soon {
+  margin: 0;
+  text-transform: lowercase;
+  letter-spacing: 0.08em;
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  color: #7c665d;
+}
+
+.contact-shell {
+  text-align: center;
+}
+
+.contact-subtitle {
+  margin-bottom: 1rem;
+  font-size: 0.96rem;
+}
+
+.contact-circles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.85rem;
+  width: min(760px, 100%);
+  margin: 0 auto;
+}
+
+.contact-bubble {
+  display: grid;
+  justify-items: center;
+  gap: 0.38rem;
+  padding: 0.2rem;
+}
+
+.contact-icon {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: color-mix(in srgb, var(--paper-soft) 82%, white 18%);
+  display: grid;
+  place-items: center;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #5b443b;
+  transition: transform 170ms ease, box-shadow 170ms ease, background 170ms ease;
+}
+
+.contact-label {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  text-transform: lowercase;
+}
+
+.contact-bubble:hover .contact-icon {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 14px rgba(74, 48, 41, 0.18);
+  background: color-mix(in srgb, var(--accent) 28%, var(--paper) 72%);
+}
+
 .portfolio-head {
   position: relative;
   margin-bottom: 0.9rem;
@@ -913,6 +1103,17 @@ a {
 
   .services-deck {
     min-height: 390px;
+  }
+
+  .about-pierre-fixed {
+    width: clamp(56px, 16vw, 76px);
+    right: 0.65rem;
+    bottom: 0.55rem;
+  }
+
+  .home-mini-note {
+    font-size: 0.64rem;
+    margin-top: 0.05rem;
   }
 
   .timeline-card {

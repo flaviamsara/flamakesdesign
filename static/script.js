@@ -17,7 +17,86 @@ cards.forEach((el, i) => {
 
 const langButtons = document.querySelectorAll('.lang-btn');
 const langKey = 'flamakesdesign_lang';
+const themeKey = 'flamakesdesign_theme';
 let currentLang = 'pt';
+let currentTheme = 'light';
+let themeToggle;
+const themeAssets = {
+  logo: {
+    light: 'static/flamakesdesign.png',
+    dark: 'static/logowhite.png'
+  },
+  pierre: {
+    light: 'static/pierre.png',
+    dark: 'static/pierremarrom.png'
+  }
+};
+
+function applyThemeAssets(theme) {
+  const mode = theme === 'dark' ? 'dark' : 'light';
+  const logo = document.querySelector('.logo-link img');
+  if (logo) logo.setAttribute('src', themeAssets.logo[mode]);
+
+  const pierreMain = document.getElementById('pierreCharacter');
+  if (pierreMain) pierreMain.setAttribute('src', themeAssets.pierre[mode]);
+
+  const pierreFixed = document.querySelector('.about-pierre-fixed img');
+  if (pierreFixed) pierreFixed.setAttribute('src', themeAssets.pierre[mode]);
+}
+
+function applyTheme(theme) {
+  const selectedTheme = theme === 'dark' ? 'dark' : 'light';
+  currentTheme = selectedTheme;
+  document.body?.setAttribute('data-theme', selectedTheme);
+  applyThemeAssets(selectedTheme);
+  if (themeToggle) {
+    themeToggle.setAttribute('data-mode', selectedTheme);
+    themeToggle.setAttribute(
+      'aria-label',
+      selectedTheme === 'dark' ? 'Ativar modo claro' : 'Ativar modo escuro'
+    );
+  }
+}
+
+function mountThemeToggle() {
+  const topbar = document.querySelector('.topbar');
+  const langSwitch = document.querySelector('.lang-switch');
+  if (!topbar || !langSwitch) return;
+
+  let controls = topbar.querySelector('.topbar-controls');
+  if (!controls) {
+    controls = document.createElement('div');
+    controls.className = 'topbar-controls';
+    topbar.appendChild(controls);
+  }
+
+  controls.appendChild(langSwitch);
+
+  if (controls.querySelector('.theme-toggle')) {
+    themeToggle = controls.querySelector('.theme-toggle');
+    return;
+  }
+
+  themeToggle = document.createElement('button');
+  themeToggle.type = 'button';
+  themeToggle.className = 'theme-toggle';
+  themeToggle.setAttribute('aria-label', 'Ativar modo escuro');
+  themeToggle.innerHTML = `
+    <span class="theme-icon theme-icon-sun" aria-hidden="true">☀</span>
+    <span class="theme-icon theme-icon-moon" aria-hidden="true">☾</span>
+  `;
+
+  controls.insertBefore(themeToggle, langSwitch);
+
+  themeToggle.addEventListener('click', () => {
+    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem(themeKey, nextTheme);
+    applyTheme(nextTheme);
+  });
+}
+
+mountThemeToggle();
+applyTheme(localStorage.getItem(themeKey) || 'light');
 
 const i18n = {
   pt: {
@@ -32,6 +111,10 @@ const i18n = {
     'page.about.intro1': 'Oi, eu sou a Fla. Sou designer gráfica e trabalho criando identidades visuais estratégicas para marcas que querem crescer com clareza e personalidade.',
     'page.about.intro2': 'Gosto de unir organização e estética. Para mim, design não é só bonito, é estrutura, direção e intenção.',
     'page.about.intro3': 'Além do design, estou estudando programação e explorando novas formas de criar na web.',
+    'page.about.newIntro1': 'Oi, eu sou a Fla! :)',
+    'page.about.newIntro2': 'Sou designer gráfica e crio identidades visuais estratégicas para marcas que querem crescer com clareza, personalidade e propósito.',
+    'page.about.newIntro3': 'Acredito que design não é só estética. É estrutura, direção e intenção. É organizar ideias para que a marca comunique exatamente o que precisa comunicar, do jeito certo. Sou apaixonada por unir organização e estética (sim, eu amo um processo bem estruturado 😌).',
+    'page.about.newIntro4': 'E além do design, estou estudando programação e explorando novas formas de criar experiências na web. Vamos trabalhar juntos?',
     'page.about.photoPlaceholder': 'sua foto aqui',
     'page.about.quickFactsTitle': 'quick facts',
     'page.about.fact1': 'Recife, Brasil',
@@ -46,6 +129,13 @@ const i18n = {
     'page.about.educationBlock2Text': 'Exemplo: Curso de Branding Estratégico, UX/UI, Tipografia, etc.',
     'page.about.educationBlock3Title': 'certificações',
     'page.about.educationBlock3Text': 'Exemplo: Certificado em ferramentas, metodologias ou especializações.',
+    'page.about.educationNewIntro': 'Minha formação, idiomas e principais ferramentas de trabalho.',
+    'page.about.educationNewBlock1Title': 'formação',
+    'page.about.educationNewBlock1Text': 'Bacharelado em Design Gráfico — UNIFG (2022 - 2024).',
+    'page.about.educationNewBlock2Title': 'idiomas',
+    'page.about.educationNewBlock2Text': 'Português (nativo) e Inglês (avançado).',
+    'page.about.educationNewBlock3Title': 'ferramentas',
+    'page.about.educationNewBlock3Text': 'Illustrator (avançado), Canva (avançado) e Photoshop (intermediário).',
     'page.about.experienceTitle': 'experiência',
     'page.about.experienceIntro': 'Espaço para adicionar onde você trabalhou, funções e principais responsabilidades.',
     'page.about.experienceBlock1Title': 'cargo e empresa',
@@ -54,6 +144,13 @@ const i18n = {
     'page.about.experienceBlock2Text': 'Exemplo: criação de identidades visuais, materiais para redes sociais e direção de arte.',
     'page.about.experienceBlock3Title': 'resultados',
     'page.about.experienceBlock3Text': 'Exemplo: melhorias de posicionamento de marca, consistência visual e crescimento de presença digital.',
+    'page.about.experienceNewIntro': 'Experiências que fortaleceram minha visão estratégica e criativa em design e marketing.',
+    'page.about.experienceNewBlock1Title': '2022 - 2023 | freelance designer',
+    'page.about.experienceNewBlock1Text': 'Atuei de forma independente oferecendo serviços de branding para pequenos empreendedores.',
+    'page.about.experienceNewBlock2Title': '2023 - 2025 | designer / marketing',
+    'page.about.experienceNewBlock2Text': 'LAI Architecture: criei marcas e identidades visuais, além de materiais promocionais e posts para redes sociais.',
+    'page.about.experienceNewBlock3Title': '2025 | marketing assistant',
+    'page.about.experienceNewBlock3Text': 'Costa Imobiliária: produzi conteúdo para redes sociais, gravei stories e desenvolvi posts e materiais gráficos.',
     'home.speechHint': 'você pode fechar esta aba no x',
     'page.portfolio.title': 'portfólio',
     'page.portfolio.text': 'Galeria com identidades visuais. Passe o mouse sobre os projetos para destacar cada case.',
@@ -78,6 +175,10 @@ const i18n = {
     'page.about.intro1': 'Hi, I am Fla. I am a graphic designer focused on creating strategic visual identities for brands that want to grow with clarity and personality.',
     'page.about.intro2': 'I love combining organization and aesthetics. To me, design is not only beautiful, it is structure, direction, and intention.',
     'page.about.intro3': 'Beyond design, I am studying programming and exploring new ways to create on the web.',
+    'page.about.newIntro1': 'Hi, I am Fla! :)',
+    'page.about.newIntro2': 'I am a graphic designer and I create strategic visual identities for brands that want to grow with clarity, personality, and purpose.',
+    'page.about.newIntro3': 'I believe design is not just aesthetics. It is structure, direction, and intention. It is about organizing ideas so the brand communicates exactly what it needs, in the right way. I am passionate about combining organization and aesthetics (yes, I love a well-structured process 😌).',
+    'page.about.newIntro4': 'And beyond design, I am studying programming and exploring new ways to create web experiences. Shall we work together?',
     'page.about.photoPlaceholder': 'your photo here',
     'page.about.quickFactsTitle': 'quick facts',
     'page.about.fact1': 'Recife, Brazil',
@@ -92,6 +193,13 @@ const i18n = {
     'page.about.educationBlock2Text': 'Example: Strategic Branding, UX/UI, Typography, etc.',
     'page.about.educationBlock3Title': 'certifications',
     'page.about.educationBlock3Text': 'Example: Certifications in tools, methods, or specializations.',
+    'page.about.educationNewIntro': 'My education, languages, and main work tools.',
+    'page.about.educationNewBlock1Title': 'education',
+    'page.about.educationNewBlock1Text': 'Bachelor in Graphic Design — UNIFG (2022 - 2024).',
+    'page.about.educationNewBlock2Title': 'languages',
+    'page.about.educationNewBlock2Text': 'Portuguese (native) and English (advanced).',
+    'page.about.educationNewBlock3Title': 'tools',
+    'page.about.educationNewBlock3Text': 'Illustrator (advanced), Canva (advanced), and Photoshop (intermediate).',
     'page.about.experienceTitle': 'experience',
     'page.about.experienceIntro': 'Space to add where you worked, roles, and key responsibilities.',
     'page.about.experienceBlock1Title': 'role and company',
@@ -100,6 +208,13 @@ const i18n = {
     'page.about.experienceBlock2Text': 'Example: visual identity creation, social media assets, and art direction.',
     'page.about.experienceBlock3Title': 'results',
     'page.about.experienceBlock3Text': 'Example: improved brand positioning, visual consistency, and growth in digital presence.',
+    'page.about.experienceNewIntro': 'Experiences that strengthened my strategic and creative vision in design and marketing.',
+    'page.about.experienceNewBlock1Title': '2022 - 2023 | freelance designer',
+    'page.about.experienceNewBlock1Text': 'I worked independently, providing branding services for small entrepreneurs.',
+    'page.about.experienceNewBlock2Title': '2023 - 2025 | designer / marketing',
+    'page.about.experienceNewBlock2Text': 'LAI Architecture: I created brands and visual identities, as well as promotional materials and social media posts.',
+    'page.about.experienceNewBlock3Title': '2025 | marketing assistant',
+    'page.about.experienceNewBlock3Text': 'Costa Real Estate: I produced social media content, recorded stories, and designed posts and graphic materials.',
     'home.speechHint': 'you can close this bubble on x',
     'page.portfolio.title': 'portfolio',
     'page.portfolio.text': 'Visual identity gallery. Hover over the projects to highlight each case.',
@@ -136,7 +251,6 @@ const pierreMessages = {
     'Click PT - EN to change the website language!',
     ':P',
     'I am the official flamakesdesign mascot',
-    'Click on other projects to see alternative projects we are working on!',
     'I love ice cream! :D',
     'I am happy you clicked on this website <3'
   ]
